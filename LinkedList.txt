@@ -1,0 +1,70 @@
+/*package whatever //do not write package name here */
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+	static class Node{
+         int data;
+         Node next;
+         Node(int data){
+             this.data = data;
+             this.next = null;
+         }
+     }
+    static Node Insert(Node root, int data){
+        Node nn = new Node(data), temp = root;
+        if(root == null){
+            return nn;
+        }
+        while(temp.next != null){
+            temp = temp.next;
+        }
+        temp.next = nn;
+        return root;
+    }
+    static Node Reverse(Node root, int m, int n){
+        Node temp1 = null, temp2 = null, head1 = root, tail1 = root;
+        for(int i = 1;i < n;i++){
+            if(i < m - 1){
+                head1 = head1.next;
+            }
+            tail1 = tail1.next;
+        }
+        temp1 = head1.next;
+        if(m == 1){
+            temp1 = root;
+        }
+        tail1 = tail1.next;
+        Node var = tail1, ptr1 = null;
+        while(temp1 != tail1){
+            ptr1 = var;
+            var = temp1;
+            temp1 = temp1.next;
+            var.next = ptr1;
+        }
+        if(m == 1){
+            return var;
+        }
+        head1.next = var;
+        
+        return root;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n1 = sc.nextInt();
+        int ar[] = new int[n1];
+        Node root = null;
+        for(int i = 0;i < n1;i++){
+            ar[i] = sc.nextInt();
+            root = Insert(root, ar[i]);
+            
+        }
+        int m = sc.nextInt(), n = sc.nextInt();
+        root = Reverse(root, m, n);
+        while(root != null){
+            System.out.println(root.data);
+            root = root.next;
+        }
+    }
+}
